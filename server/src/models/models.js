@@ -7,6 +7,7 @@ const Employee = sequelize.define("employee", {
   position: { type: DataTypes.STRING, allowNull: false },
   gender: { type: DataTypes.STRING },
   address: { type: DataTypes.STRING },
+  password: { type: DataTypes.STRING, allowNull: false },
 });
 
 const Item = sequelize.define("item", {

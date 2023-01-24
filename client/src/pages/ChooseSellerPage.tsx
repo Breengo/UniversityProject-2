@@ -1,11 +1,14 @@
 import React from "react";
 import axios from "../axios";
+import AuthWindow from "../components/AuthWindow";
 import BackButton from "../components/BackButton";
 import EmployeeBox from "../components/EmployeeBox";
 import { IEmployeeInfo } from "./ChooseManagerPage";
 
 const ChooseSellerPage = () => {
   const [sellerList, setSellerList] = React.useState<IEmployeeInfo[]>([]);
+  const [showAuth, setShowAuth] = React.useState(false);
+  const [authId, setAuthId] = React.useState(0);
   React.useEffect(() => {
     axios
       .get("/employee/list")
@@ -35,6 +38,8 @@ const ChooseSellerPage = () => {
               <EmployeeBox
                 key={item.id}
                 {...{
+                  setShowAuth,
+                  setAuthId,
                   role: item.position,
                   last: true,
                   name: item.name,
@@ -47,6 +52,8 @@ const ChooseSellerPage = () => {
               <EmployeeBox
                 key={item.id}
                 {...{
+                  setShowAuth,
+                  setAuthId,
                   role: item.position,
                   last: false,
                   name: item.name,
@@ -58,6 +65,7 @@ const ChooseSellerPage = () => {
             );
           })}
       </div>
+      {showAuth && <AuthWindow position="Seller" id={authId} />}
     </div>
   );
 };

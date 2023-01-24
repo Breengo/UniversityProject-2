@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../axios";
 import BackButton from "../components/BackButton";
+import AuthWindow from "../components/AuthWindow";
 import EmployeeBox from "../components/EmployeeBox";
 
 export interface IEmployeeInfo {
@@ -15,6 +16,8 @@ export interface IEmployeeInfo {
 
 const ChooseManagerPage = () => {
   const [managerList, setManagerList] = React.useState<IEmployeeInfo[]>([]);
+  const [showAuth, setShowAuth] = React.useState(false);
+  const [authId, setAuthId] = React.useState(0);
   React.useEffect(() => {
     axios
       .get("/employee/list")
@@ -29,7 +32,7 @@ const ChooseManagerPage = () => {
       <BackButton />
       <div className="bg-blue-500 text-white rounded-xl w-6/12">
         <h1 className="font-bold text-xl p-4 text-center border-b-2 border-blue-400">
-          Sellers
+          Managers
         </h1>
         <div className="flex text-center border-b-2 border-blue-400">
           <h2 className="w-1/5 p-4 border-r-2 border-blue-400">ID</h2>
@@ -44,6 +47,8 @@ const ChooseManagerPage = () => {
               <EmployeeBox
                 key={item.id}
                 {...{
+                  setShowAuth,
+                  setAuthId,
                   role: item.position,
                   last: true,
                   name: item.name,
@@ -56,6 +61,8 @@ const ChooseManagerPage = () => {
               <EmployeeBox
                 key={item.id}
                 {...{
+                  setShowAuth,
+                  setAuthId,
                   role: item.position,
                   last: false,
                   name: item.name,
@@ -67,6 +74,7 @@ const ChooseManagerPage = () => {
             )
           )}
       </div>
+      {showAuth && <AuthWindow position="Manager" id={authId} />}
     </div>
   );
 };

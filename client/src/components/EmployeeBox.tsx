@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 interface IEmployeInfo {
   last: boolean;
   role: "Manager" | "Seller";
@@ -7,16 +5,18 @@ interface IEmployeInfo {
   name: string;
   gender: "M" | "F";
   address: string;
+  setAuthId: (arg: number) => void;
+  setShowAuth: (arg: boolean) => void;
 }
 
 const EmployeeBox: React.FC<IEmployeInfo> = (EmployeInfo) => {
+  const onClickHandler = () => {
+    EmployeInfo.setAuthId(EmployeInfo.id);
+    EmployeInfo.setShowAuth(true);
+  };
   return (
-    <Link
-      to={
-        EmployeInfo.role === "Seller"
-          ? `/seller/${EmployeInfo.id}`
-          : `/manager/${EmployeInfo.id}`
-      }
+    <div
+      onClick={onClickHandler}
       className={
         EmployeInfo.last
           ? "flex text-center cursor-pointer hover:bg-blue-600 rounded-b-xl"
@@ -28,7 +28,7 @@ const EmployeeBox: React.FC<IEmployeInfo> = (EmployeInfo) => {
       <h2 className="w-1/5 p-4">{EmployeInfo.role}</h2>
       <h2 className="w-1/5 p-4">{EmployeInfo.gender}</h2>
       <h2 className="w-1/5 p-4">{EmployeInfo.address}</h2>
-    </Link>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../axios";
+
 import BackButton from "../components/BackButton";
 import ItemBox from "../components/ItemBox";
 
@@ -16,6 +17,7 @@ interface IItemInfo {
 
 const ManagerPage = () => {
   const [itemList, setItemList] = React.useState<IItemInfo[]>([]);
+
   React.useEffect(() => {
     axios.get("/item/list").then((res) => setItemList(res.data));
   }, []);
